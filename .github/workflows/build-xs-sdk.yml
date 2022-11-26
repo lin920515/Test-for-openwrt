@@ -58,7 +58,7 @@ jobs:
       run: |
         df -hT $PWD
         git clone $REPO_URL -b $REPO_BRANCH
-        ln -sf /workdir/openwrt $GITHUB_WORKSPACE/XS.EDONGLEV3.01.01.10-ImageBuilder/imagebuilder
+        ln -sf /workdir/openwrt $GITHUB_WORKSPACE/XS_SDK_ImageBuilder/imagebuilder
         echo `pwd`
         echo `ls`
 
