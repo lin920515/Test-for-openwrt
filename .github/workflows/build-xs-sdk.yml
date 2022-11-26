@@ -58,13 +58,16 @@ jobs:
       run: |
         df -hT $PWD
         git clone $REPO_URL -b $REPO_BRANCH
-        ln -sf /workdir/openwrt $GITHUB_WORKSPACE/XS.EDONGLEV3.01.01.10-ImageBuilder
+        ln -sf /workdir/openwrt $GITHUB_WORKSPACE/XS.EDONGLEV3.01.01.10-ImageBuilder/imagebuilder
+        echo `pwd`
+        echo `ls`
 
 
     - name: Compile the firmware
       id: compile
       run: |
-        cd openwrt/imagebuilder
+        echo `pwd`
+        cd openwrt
         make image
         echo "::set-output name=status::success"
         echo "DEVICE_NAME=XS_EDONGLEV3" >> $GITHUB_ENV
@@ -76,13 +79,13 @@ jobs:
       if: steps.compile.outputs.status == 'success' && env.UPLOAD_BIN_DIR == 'true'
       with:
         name: OpenWrt_bin${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
-        path: openwrt/imagebuilder/bin
+        path: openwrt/bin
 
     - name: Organize files
       id: organize
       if: env.UPLOAD_FIRMWARE == 'true' && !cancelled()
       run: |
-        cd openwrt/imagebuilder/bin/targets/*/*
+        cd openwrt/bin/targets/*/*
         echo "FIRMWARE=$PWD" >> $GITHUB_ENV
         echo "::set-output name=status::success"
 
