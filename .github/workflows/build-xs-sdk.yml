@@ -110,6 +110,7 @@ jobs:
         echo "Password：XSlinux123" >> release.txt
         echo "Kernel version：5.4" >> release.txt
         echo "${{ env.useVersionInfo }}" >> release.txt
+        echo "5a7g0003" >> release.txt
         echo "::set-output name=status::success"
 
     - name: Upload firmware to release
